@@ -28,7 +28,7 @@ export class FormPopupComponent {
 
   @Input() width = 480;
 
-  @Input() height: string | number = 'auto';
+  @Input() height: string | number = '80%';
 
   @Input() wrapperAttr: Record<string, string> = {};
 
