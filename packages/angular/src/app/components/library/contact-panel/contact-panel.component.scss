@@ -2,11 +2,11 @@
 @use "devextreme/scss/widgets/material/textEditor/sizes" as *;
 
 :host {
-  --contact-side-panel-width: 350px;
+  --contact-side-panel-width: 370px;
 }
 
 :host-context(.screen-x-small) {
-  --contact-side-panel-width: 100vw;
+  --contact-side-panel-width: 110vw;
 }
 
 :host .panel {
@@ -78,7 +78,11 @@
     }
 
     .panel-scroll {
-      height: calc(100% - 20px);
+      height: 90%;
+      border-top: 1px solid var(--border-color);
+      border-bottom: 1px solid var(--border-color);
+      padding-top: 10px;
+    padding-bottom: 10px;
     }
 
     .contact-name {

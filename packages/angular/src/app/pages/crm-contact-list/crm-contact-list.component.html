@@ -2,7 +2,7 @@
   <dx-data-grid
     class="grid theme-dependent"
     noDataText=""
-    height="100%"
+    height="85%"
     [dataSource]="dataSource"
     [allowColumnReordering]="true"
     [focusedRowEnabled]="true"
@@ -11,7 +11,7 @@
     (onRowClick)="rowClick($event)"
     (onExporting)="onExporting($event)"
   >
-    <dxo-load-panel [showPane]="false"></dxo-load-panel>
+    <dxo-load-panel [showPane]="true" [width]="110"></dxo-load-panel>
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection
       selectAllMode="allPages"
@@ -44,7 +44,11 @@
           [dropDownOptions]="{ width: 'auto' }"
           [selectedItemKey]="filterStatusList[0]"
           (onSelectionChanged)="filterByStatus($event)"
-        ></dx-drop-down-button>
+          itemTemplate="field"
+        >
+          <div *dxTemplate="let data of 'field'" class="status-editor-field">
+            <contact-status [value]="data"></contact-status>
+          </div></dx-drop-down-button>
       </dxi-item>
       <dxi-item location="after" locateInMenu="auto">
         <dx-button
@@ -84,7 +88,6 @@
       sortOrder="asc"
       [hidingPriority]="5"
       [minWidth]="150"
-      cellTemplate="name"
     ></dxi-column>
     <dxi-column
       dataField="company"
@@ -116,13 +119,15 @@
       caption="Email"
       [hidingPriority]="1"
     ></dxi-column>
-
-    <div *dxTemplate="let cellInfo of 'name'" class="name-template">
+<dxo-summary>
+  <dxi-total-item summaryType="count" column="name"></dxi-total-item>
+</dxo-summary>
+    <!-- <div *dxTemplate="let cellInfo of 'name'" class="name-template">
       <div>
         <div>{{ cellInfo.data.name }}</div>
         <div class="position">{{ cellInfo.data.position }}</div>
       </div>
-    </div>
+    </div> -->
 
     <div *dxTemplate="let cellInfo of 'cellStatus'">
       <contact-status [value]="cellInfo.data.status"></contact-status>

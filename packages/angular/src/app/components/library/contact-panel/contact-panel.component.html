@@ -8,13 +8,13 @@
         <dxi-item location="before">
           <contact-status [value]="user.status"></contact-status>
         </dxi-item>
-        <dxi-item location="after" [visible]="isPinEnabled">
+        <!-- <dxi-item location="after" [visible]="isPinEnabled">
           <dx-button
             stylingMode="text"
             [icon]="pinned ? 'pin' : 'unpin'"
             (onClick)="onPinClick()"
           ></dx-button>
-        </dxi-item>
+        </dxi-item> -->
         <dxi-item location="after">
           <dx-button
             icon="close" 
@@ -60,7 +60,7 @@
                     </div>
                   </dxi-item>
 
-                  <dxi-item cssClass="accent">
+                  <!-- <dxi-item cssClass="accent">
                     <div *dxTemplate>
                       <form-textbox
                         label="Assigned to"
@@ -68,7 +68,7 @@
                         [isEditing]="isEditing"
                       ></form-textbox>
                     </div>
-                  </dxi-item>
+                  </dxi-item> -->
                 </dxi-item>
               </dxi-item>
 
@@ -111,7 +111,7 @@
 
           <div class="data-part data-part-toolbar border">
             <dx-toolbar>
-              <dxi-item location="after" [visible]="!isEditing">
+              <!-- <dxi-item location="after" [visible]="!isEditing">
                 <dx-button
                   text="Edit"
                   icon="edit"
@@ -120,17 +120,18 @@
                   (onClick)="toggleEdit()"
                 >
                 </dx-button>
-              </dxi-item>
-              <dxi-item location="after" [visible]="!isEditing">
+              </dxi-item> -->
+              <dxi-item location="center" [visible]="!isEditing">
                 <dx-button
                   text="Details"
+                  [width]="285"
                   stylingMode="outlined"
                   type="normal"
                   (onClick)="navigateToDetails()"
                 >
                 </dx-button>
               </dxi-item>
-              <dxi-item
+              <!-- <dxi-item
                 location="after"
                 locateInMenu="after"
                 [visible]="isEditing"
@@ -143,8 +144,8 @@
                   (onClick)="onSaveClick($event)"
                 >
                 </dx-button>
-              </dxi-item>
-              <dxi-item
+              </dxi-item> -->
+              <!-- <dxi-item
                 location="after"
                 locateInMenu="after"
                 [visible]="isEditing"
@@ -155,8 +156,8 @@
                   type="normal"
                   (onClick)="toggleEdit()"
                 ></dx-button>
-              </dxi-item>
-              <dxi-item
+              </dxi-item> -->
+              <!-- <dxi-item
                 location="before"
                 widget="dxDropDownButton"
                 [options]="{
@@ -166,7 +167,7 @@
                   width: 'auto',
                   items: ['Call', 'Send Fax', 'Send Email', 'Make a Meeting']
                 }"
-              ></dxi-item>
+              ></dxi-item> -->
             </dx-toolbar>
           </div>
         </dx-validation-group>

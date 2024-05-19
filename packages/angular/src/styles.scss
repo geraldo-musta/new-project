@@ -50,13 +50,38 @@ body {
     display: block;
   }
 }
-
 .dx-card.wide-card {
   border-radius: 0;
   margin-left: 0;
   margin-right: 0;
   border-right: 0;
   border-left: 0;
+}
+
+.dx-datagrid .dx-row > td {
+  padding: 16px 16px !important;
+}
+
+.dx-button.dx-button-default {
+  border-radius: 7px !important;
+}
+
+.dx-accordion {
+  box-shadow: 0 4px 20px 0 rgba(0, 0, 0, 0.13) !important;
+  border-radius: 7px !important;
+}
+
+.dx-popup-bottom.dx-toolbar {
+  padding: 9px 24px 9px !important;
+  border-top: 1px solid var(--border-color) !important;
+}
+
+.dx-dropdownbutton-popup-wrapper .dx-list-items {
+  margin: 5px 8px !important;
+}
+
+.dx-gridbase-container > .dx-datagrid-rowsview.dx-scrollable {
+  padding-bottom: 12px !important;
 }
 
 .view-wrapper-scroll > .dx-scrollable-wrapper > .dx-scrollable-container > .dx-scrollable-content {
@@ -101,7 +126,7 @@ body {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-  padding: 0 var(--page-padding);
+  padding: 25px;
 }
 
 .dx-card.details-card {
@@ -278,13 +303,13 @@ body {
       }
     }
 
-    &.crm-contact-list {
-      margin-bottom: var(--content-padding);
-    }
+    // &.crm-contact-list {
+    //   margin-bottom: var(--content-padding);
+    // }
   }
 
   .view-wrapper.list-page {
-    margin-top: var(--content-padding);
+    // margin-top: var(--content-padding);
 
     .dx-toolbar.dx-widget.theme-dependent,
     .grid.theme-dependent .dx-toolbar {
@@ -297,7 +322,7 @@ body {
   }
 
   .plain-styled-form .photo {
-    border-radius: 50%;
+    border-radius: 10%;
   }
 
   .dx-form.plain-styled-form.view-mode {

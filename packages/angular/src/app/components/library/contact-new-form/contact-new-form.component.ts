@@ -7,6 +7,7 @@ import {
   DxTextBoxModule,
   DxFormModule,
   DxValidatorModule,
+  DxScrollViewModule,
 } from 'devextreme-angular';
 import {
   FormTextboxModule,
@@ -34,7 +35,7 @@ export class ContactNewFormComponent {
     DxTextBoxModule,
     DxFormModule,
     DxValidatorModule,
-
+    DxScrollViewModule,
     FormTextboxModule,
     FormPhotoUploaderModule,
 
