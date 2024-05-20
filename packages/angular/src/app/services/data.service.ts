@@ -9,7 +9,7 @@ import {
   toArray,
 } from 'rxjs/operators';
 import { Task } from 'src/app/types/task';
-import { Contact } from 'src/app/types/contact';
+import { Contact, ContactBase } from 'src/app/types/contact';
 import { Sale, SalesOrOpportunitiesByCategory } from '../types/analytics';
 
 const API_URL = 'https://js.devexpress.com/Demos/RwaService/api';
@@ -32,6 +32,16 @@ export class DataService {
     return of(contact);
   }
 
+  public addContact(newContact: ContactBase): Observable<ContactBase[]> {
+    let contacts: ContactBase[] = JSON.parse(localStorage.getItem(this.allContacts)) || [];    
+    const maxId = contacts.length > 0 ? Math.max(...contacts.map(contact => contact.id)) : 0;
+    const id = maxId + 1;  
+    const contact: ContactBase = { ...newContact, id };  
+    contacts = [...contacts, contact];  
+    localStorage.setItem(this.allContacts, JSON.stringify(contacts));
+    localStorage.setItem(this.contactById, JSON.stringify(contacts));
+    return of(contacts);
+  }
 
   // public getContact = (id: number) =>
   //   this.http.get<Contact>(`${API_URL}/Users/Contacts/${id}`);

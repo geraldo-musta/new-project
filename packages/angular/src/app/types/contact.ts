@@ -15,6 +15,7 @@ type State = {
 };
 
 export interface ContactBase {
+  id: number
   address: string,
   firstName: string,
   lastName: string,
@@ -40,6 +41,7 @@ export interface Contact extends ContactBase {
 }
 
 export const newContact: ContactBase = {
+  id: null,
   firstName: '',
   lastName: '',
   position: '',

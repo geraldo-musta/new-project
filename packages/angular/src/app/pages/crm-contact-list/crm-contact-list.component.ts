@@ -17,7 +17,7 @@ import {
   CardActivitiesModule,
   ContactStatusModule,
 } from 'src/app/components';
-import { Contact, contactStatusList, ContactStatus, } from 'src/app/types/contact';
+import { Contact, contactStatusList, ContactStatus, ContactBase, } from 'src/app/types/contact';
 import { DxDropDownButtonTypes } from 'devextreme-angular/ui/drop-down-button';
 import { CommonModule } from '@angular/common';
 import { DataService } from 'src/app/services';
@@ -74,6 +74,7 @@ export class CrmContactListComponent implements OnInit {
 
   refresh = () => {
     this.dataGrid.instance.refresh();
+    this.getAllContacts();
   };
 
   rowClick(e: DxDataGridTypes.RowClickEvent) {
@@ -131,13 +132,17 @@ export class CrmContactListComponent implements OnInit {
     }
   }
 
-  onClickSaveNewContact = () => {
-    const { firstName, lastName} = this.contactNewForm.getNewContactData();
-    notify({
-        message: `New contact "${firstName} ${lastName}" saved`,
-        position: { at: 'bottom center', my: 'bottom center' }
-      },
-      'success');
+  onClickSaveNewContact() {
+    const newContact: ContactBase = this.contactNewForm.getNewContactData();
+    this.service.addContact(newContact).subscribe({
+      next:() => {
+        this.getAllContacts();
+        notify({
+          message: `New contact saved`,
+          position: { at: 'bottom center', my: 'bottom center' }
+        }, 'success');
+      }
+    });
   };
 }
 
