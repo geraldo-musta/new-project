@@ -1,6 +1,14 @@
 <div class="panel" [ngClass]="{ pin: pinned, open: isOpened }">
   <div class="data-wrapper">
-    <ng-container *ngIf="!isLoading">
+    <dx-toolbar class="panel-toolbar" *ngIf="!user">
+      <dxi-item location="after">
+        <dx-button
+          icon="close" 
+          stylingMode="text"
+          (onClick)="onClosePanel()"></dx-button>
+      </dxi-item>
+    </dx-toolbar>
+    <ng-container *ngIf="!isLoading && user">
       <dx-toolbar class="panel-toolbar">
         <dxi-item location="before">
           <span class="contact-name value">{{ user.name }}</span>
@@ -8,13 +16,6 @@
         <dxi-item location="before">
           <contact-status [value]="user.status"></contact-status>
         </dxi-item>
-        <!-- <dxi-item location="after" [visible]="isPinEnabled">
-          <dx-button
-            stylingMode="text"
-            [icon]="pinned ? 'pin' : 'unpin'"
-            (onClick)="onPinClick()"
-          ></dx-button>
-        </dxi-item> -->
         <dxi-item location="after">
           <dx-button
             icon="close" 
@@ -22,7 +23,6 @@
             (onClick)="onClosePanel()"></dx-button>
         </dxi-item>
       </dx-toolbar>
-
       <dx-scroll-view class="panel-scroll">
         <dx-validation-group>
           <div class="data-part border">
@@ -108,7 +108,6 @@
               </dxi-item>
             </dx-form>
           </div>
-
           <div class="data-part data-part-toolbar border">
             <dx-toolbar>
               <!-- <dxi-item location="after" [visible]="!isEditing">
@@ -124,7 +123,7 @@
               <dxi-item location="center" [visible]="!isEditing">
                 <dx-button
                   text="Details"
-                  [width]="285"
+                  [width]="320"
                   stylingMode="outlined"
                   type="normal"
                   (onClick)="navigateToDetails()"
@@ -201,12 +200,14 @@
         </div>
       </dx-scroll-view>
     </ng-container>
-
+    <div *ngIf="!user" class="no-user-data">
+      <span class="contact-name value">No user data</span>
+    </div>
     <dx-load-panel
       container=".panel"
-      [width]="300"
+      [width]="110"
       [visible]="isLoading"
-      [showPane]="false"
+      [showPane]="true"
       [position]="{ of: '.panel' }"
     ></dx-load-panel>
   </div>

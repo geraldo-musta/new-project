@@ -27,10 +27,11 @@
   </dx-toolbar>
 
   <dx-load-panel
+  [width]="110"
     container=".view-wrapper-scroll"
     [visible]="isLoading"
-    [showPane]="false"
-    [position]="{ of: 'user-profile' }"
+    [showPane]="true"
+    [position]="{ of: 'view-wrapper-scroll' }"
   >
   </dx-load-panel>
   <dx-scroll-view class="view-wrapper-scroll" (onScroll)="scroll($event)">

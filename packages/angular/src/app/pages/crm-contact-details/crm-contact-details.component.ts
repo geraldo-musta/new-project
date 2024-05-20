@@ -21,6 +21,7 @@ import { Opportunities } from 'src/app/types/opportunities';
 import { ContactFormModule } from 'src/app/components/library/contact-form/contact-form.component';
 import { ContactCardsModule } from 'src/app/components/utils/contact-cards/contact-cards.component';
 import { DxToolbarModule } from 'devextreme-angular/ui/toolbar';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   templateUrl: './crm-contact-details.component.html',
@@ -28,7 +29,7 @@ import { DxToolbarModule } from 'devextreme-angular/ui/toolbar';
   providers: [DataService],
 })
 export class CrmContactDetailsComponent implements OnInit {
-  contactId = 12;
+  userId: number;
 
   contactData: Contact;
 
@@ -40,11 +41,13 @@ export class CrmContactDetailsComponent implements OnInit {
 
   closedOpportunities: Opportunities;
 
-  contactName = 'Loading...';
+  contactName: string;
 
   isLoading = false;
 
-  constructor(private service: DataService) {
+  constructor(private service: DataService, private router: Router ) {
+    const storedId = localStorage.getItem('userid');
+    this.userId = +storedId
   }
 
   ngOnInit(): void {
@@ -52,11 +55,12 @@ export class CrmContactDetailsComponent implements OnInit {
   }
 
   loadData = () => {
+    this.isLoading = true;
     forkJoin([
-      this.service.getContactNotes(this.contactId),
-      this.service.getContactMessages(this.contactId),
-      this.service.getActiveContactOpportunities(this.contactId),
-      this.service.getClosedContactOpportunities(this.contactId),
+      this.service.getContactNotes(this.userId),
+      this.service.getContactMessages(this.userId),
+      this.service.getActiveContactOpportunities(this.userId),
+      this.service.getClosedContactOpportunities(this.userId),
     ]).pipe(
       map(
         ([
@@ -70,14 +74,26 @@ export class CrmContactDetailsComponent implements OnInit {
           activeOpportunities,
           closedOpportunities
         }))
-      ).subscribe(
-        (data) => Object.keys(data).forEach((key) => this[key] = data[key])
+      ).subscribe({
+        next: (data) => {
+          Object.keys(data).forEach((key) => this[key] = data[key])
+        },
+        error: () => {
+          this.isLoading = false;
+        }
+      }
     );
-
-    this.service.getContact(this.contactId).subscribe((data) => {
-      this.contactName = data.name;
+    this.service.getContact(this.userId).subscribe( {
+      next:(data) => {
+      this.contactName = data?.name;
       this.contactData = data;
-      this.isLoading = false;
+      setTimeout(() => {
+        this.isLoading = false;
+      }, 350)
+      },
+      error: () => {
+        this.isLoading = false;
+      }
     })
   };
 
@@ -85,6 +101,10 @@ export class CrmContactDetailsComponent implements OnInit {
     this.isLoading = true;
     this.loadData();
   };
+
+  goBack() {
+    this.router.navigate(['/crm-contact-list'])
+  }
 }
 
 @NgModule({

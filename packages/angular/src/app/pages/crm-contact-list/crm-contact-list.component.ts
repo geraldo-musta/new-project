@@ -1,5 +1,6 @@
 import {
   Component, ViewChild, NgModule,
+  OnInit,
 } from '@angular/core';
 import {
   DxButtonModule,
@@ -18,7 +19,6 @@ import {
 } from 'src/app/components';
 import { Contact, contactStatusList, ContactStatus, } from 'src/app/types/contact';
 import { DxDropDownButtonTypes } from 'devextreme-angular/ui/drop-down-button';
-import DataSource from 'devextreme/data/data_source';
 import { CommonModule } from '@angular/common';
 import { DataService } from 'src/app/services';
 import { Workbook } from 'exceljs';
@@ -37,7 +37,7 @@ type FilterContactStatus = ContactStatus | 'All';
   styleUrls: ['./crm-contact-list.component.scss'],
   providers: [DataService],
 })
-export class CrmContactListComponent {
+export class CrmContactListComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: true }) dataGrid: DxDataGridComponent;
 
   @ViewChild(ContactNewFormComponent, { static: false }) contactNewForm: ContactNewFormComponent;
@@ -52,17 +52,21 @@ export class CrmContactListComponent {
 
   userId: number;
 
-  dataSource = new DataSource<Contact[], string>({
-    key: 'id',
-    load: () => new Promise((resolve, reject) => {
-      this.service.getContacts().subscribe({
-          next: (data: Contact[]) => resolve(data),
-          error: ({message}) => reject(message)
-        })
-    }),
-  });
+  dataSource: Contact[];
 
   constructor(private service: DataService) {}
+
+  ngOnInit(): void {
+      this.getAllContacts();
+  }
+
+  getAllContacts() {
+    this.service.getContacts().subscribe({
+      next: (res) => {
+        this.dataSource = res;
+      }
+    })
+  }
 
   addContact() {
     this.isAddContactPopupOpened = true;
@@ -74,9 +78,9 @@ export class CrmContactListComponent {
 
   rowClick(e: DxDataGridTypes.RowClickEvent) {
     const { data } = e;
-
     this.userId = data.id;
     this.isPanelOpened = true;
+    localStorage.setItem('userid', this.userId.toString());
   }
 
   onOpenedChange = (value: boolean) => {

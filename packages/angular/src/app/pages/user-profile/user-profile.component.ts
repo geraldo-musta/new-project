@@ -33,7 +33,7 @@ import { DataService, ScreenService } from 'src/app/services';
   providers: [DataService],
 })
 export class UserProfileComponent {
-  profileId = 22;
+  userId: number;
 
   profileData: Record<string, any>;
 
@@ -56,9 +56,12 @@ export class UserProfileComponent {
   addressItems: Record<string, any>[] = this.getAddressItems();
 
   constructor(private service: DataService, public screen: ScreenService, private ref: ChangeDetectorRef) {
+    const storedId = localStorage.getItem('userid');
+    this.userId = +storedId
+
     forkJoin([
       service.getSupervisors(),
-      service.getProfile(this.profileId)
+      service.getProfile(this.userId)
     ]).subscribe(([supervisorsList, profileData]) => {
       this.supervisorsList.length = 0;
       this.supervisorsList.push(...supervisorsList);

@@ -3,6 +3,7 @@
     class="grid theme-dependent"
     noDataText=""
     height="85%"
+    keyExpr="id"
     [dataSource]="dataSource"
     [allowColumnReordering]="true"
     [focusedRowEnabled]="true"
@@ -11,7 +12,7 @@
     (onRowClick)="rowClick($event)"
     (onExporting)="onExporting($event)"
   >
-    <dxo-load-panel [showPane]="true" [width]="110"></dxo-load-panel>
+    <dxo-load-panel [enabled]="true" [showPane]="true" [width]="110"></dxo-load-panel>
     <dxo-scrolling mode="virtual"></dxo-scrolling>
     <dxo-selection
       selectAllMode="allPages"

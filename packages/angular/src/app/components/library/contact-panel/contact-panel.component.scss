@@ -63,9 +63,9 @@
     .data-part {
       padding: 0 16px;
 
-      &.border {
-        border-bottom: 1px solid var(--border-color);
-      }
+      // &.border {
+      //   border-bottom: 1px solid var(--border-color);
+      // }
 
       &-toolbar {
         padding: 10px 16px;
@@ -80,7 +80,7 @@
     .panel-scroll {
       height: 90%;
       border-top: 1px solid var(--border-color);
-      border-bottom: 1px solid var(--border-color);
+      // border-bottom: 1px solid var(--border-color);
       padding-top: 10px;
     padding-bottom: 10px;
     }
@@ -103,4 +103,11 @@
       }
     }
   }
+}
+
+.no-user-data {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
 }

@@ -169,9 +169,10 @@
     </dx-form>
   </dx-validation-group>
   <dx-load-panel
+    [width]="110"
     container="#contact-form"
     [position]="{ of: '#contact-form' }"
     [visible]="!contactData || isLoading"
-    [showPane]="false"
+    [showPane]="true"
   ></dx-load-panel>
 </div>

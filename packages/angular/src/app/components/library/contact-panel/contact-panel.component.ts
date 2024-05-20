@@ -33,6 +33,7 @@ import {
 import { ScreenService, DataService } from 'src/app/services';
 import { distinctUntilChanged, Subject, Subscription} from 'rxjs';
 import { Contact } from 'src/app/types/contact';
+import notify from 'devextreme/ui/notify';
 
 @Component({
   selector: 'contact-panel',
@@ -55,7 +56,7 @@ export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecke
 
   pinned = false;
 
-  isLoading = true;
+  isLoading = true;;
 
   isEditing = false;
 
@@ -83,7 +84,6 @@ export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecke
 
   ngOnChanges(changes: SimpleChanges): void {
     const { userId } = changes;
-
     if (userId?.currentValue) {
       this.loadUserById(userId.currentValue);
     }
@@ -93,13 +93,21 @@ export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecke
     this.userPanelSubscriptions.forEach((sub) => sub.unsubscribe());
   }
 
-  loadUserById = (id: number) => {
+  loadUserById(id: number) {
     this.isLoading = true;
-
-    this.service.getContact(id).subscribe((data) => {
-      this.user = data;
-      this.isLoading = false;
-      this.isEditing = false;
+      this.service.getContact(id).subscribe({
+      next: (data) => {
+        this.user = data;
+        this.isEditing = false;
+        setTimeout(() => {
+          this.isLoading = false;
+        }, 350);
+      },
+      error:() => {
+        notify({
+          
+        })
+      }
     })
   };
 
@@ -129,7 +137,8 @@ export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecke
     this.isEditing = !this.isEditing;
   };
 
-  navigateToDetails = () => {
+  navigateToDetails() {
+    localStorage.setItem('userid', this.userId.toString());
     this.router.navigate(['/crm-contact-details']);
   };
 }

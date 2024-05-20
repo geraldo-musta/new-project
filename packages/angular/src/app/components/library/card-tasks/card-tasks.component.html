@@ -32,8 +32,9 @@
   </dx-data-grid>
 
   <dx-load-panel
+  [width]="110"
     [visible]="!currentTasks || isLoading"
-    [showPane]="false"
+    [showPane]="true"
     container="#card-tasks"
     [position]="{ of: '#card-tasks' }"
   ></dx-load-panel>
