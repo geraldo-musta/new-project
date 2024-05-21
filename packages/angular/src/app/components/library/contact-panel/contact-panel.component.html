@@ -1,6 +1,9 @@
 <div class="panel" [ngClass]="{ pin: pinned, open: isOpened }">
   <div class="data-wrapper">
     <dx-toolbar class="panel-toolbar" *ngIf="!user">
+      <dxi-item location="before">
+        <span class="contact-name value">{{ userName }}</span>
+      </dxi-item>
       <dxi-item location="after">
         <dx-button
           icon="close" 

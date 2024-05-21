@@ -42,3 +42,26 @@
     }
   }
 }
+
+.message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80%;
+}
+.no-data {
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  margin-top: 15%;
+}
+.no-user {
+  font-weight: 400;
+  font-family: "Inter", sans-serif;
+  font-size: 22px;
+  margin-top: 18%;
+  padding: 15px 25px 39px 19px;
+}
+::ng-deep .dx-button-has-text .dx-button-content {
+  padding-block: 11px !important;
+}

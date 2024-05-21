@@ -43,25 +43,17 @@ import notify from 'devextreme/ui/notify';
 })
 export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecked, OnDestroy {
   @Input() isOpened = false;
-
   @Input() userId: number;
-
+  @Input() userName: string;
   @Output() isOpenedChange = new EventEmitter<boolean>();
-
   @Output() pinnedChange = new EventEmitter<boolean>();
 
   private pinEventSubject = new Subject<boolean>();
-
   user: Contact;
-
   pinned = false;
-
   isLoading = true;;
-
   isEditing = false;
-
   isPinEnabled = false;
-
   userPanelSubscriptions: Subscription[] = [];
 
   constructor(private screen: ScreenService, private service: DataService, private router: Router) {
@@ -139,6 +131,7 @@ export class ContactPanelComponent implements OnInit, OnChanges, AfterViewChecke
 
   navigateToDetails() {
     localStorage.setItem('userid', this.userId.toString());
+    localStorage.setItem('userName', this.userName.toString());
     this.router.navigate(['/crm-contact-details']);
   };
 }

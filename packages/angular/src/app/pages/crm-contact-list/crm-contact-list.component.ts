@@ -9,6 +9,7 @@ import {
   DxDropDownButtonModule,
   DxSelectBoxModule,
   DxTextBoxModule,
+  DxScrollViewModule,
 } from 'devextreme-angular';
 import { DxDataGridTypes } from 'devextreme-angular/ui/data-grid';
 import { exportDataGrid as exportDataGridToPdf } from 'devextreme/pdf_exporter';
@@ -51,6 +52,7 @@ export class CrmContactListComponent implements OnInit {
   isAddContactPopupOpened = false;
 
   userId: number;
+  userName: string;
 
   dataSource: Contact[];
 
@@ -80,8 +82,10 @@ export class CrmContactListComponent implements OnInit {
   rowClick(e: DxDataGridTypes.RowClickEvent) {
     const { data } = e;
     this.userId = data.id;
+    this.userName = data.name
     this.isPanelOpened = true;
     localStorage.setItem('userid', this.userId.toString());
+    localStorage.setItem('userName', this.userName ? this.userName.toString() : 'Name Empty');
   }
 
   onOpenedChange = (value: boolean) => {
@@ -153,7 +157,7 @@ export class CrmContactListComponent implements OnInit {
     DxDropDownButtonModule,
     DxSelectBoxModule,
     DxTextBoxModule,
-
+    DxScrollViewModule,
     ContactPanelModule,
     ContactNewFormModule,
     FormPopupModule,

@@ -11,6 +11,9 @@
   left: 0;
   right: 0;
   opacity: 0;
+  border: 1px solid transparent;
+  border-bottom-left-radius: 12px;
+  border-bottom-right-radius: 12px;
 
   .dx-drawer-opened & {
     opacity: 1;

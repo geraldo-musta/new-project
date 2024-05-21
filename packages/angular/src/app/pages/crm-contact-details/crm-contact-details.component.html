@@ -1,18 +1,21 @@
-<dx-scroll-view class="view-wrapper-scroll">
-  <div *ngIf="contactData" class="view-wrapper">
-    <dx-toolbar class="toolbar-details theme-dependent">
+<dx-scroll-view class="view-wrapper-scroll view-wrapper">
+  <div>
+    <div *ngIf="!userId" class="message">
+      <dx-button class="no-user" text="Please select an user from the contact list" (onClick)="goBack()"></dx-button>
+    </div>
+    <dx-toolbar *ngIf="userId" class="toolbar-details theme-dependent">
       <dxi-item location="before">
         <dx-button icon="arrowleft" stylingMode="text" (onClick)="goBack()"></dx-button>
       </dxi-item>
-      <dxi-item location="before" [text]="contactName"></dxi-item>
-      <dxi-item location="after" locateInMenu="auto">
+      <dxi-item location="before" [text]="userName"></dxi-item>
+      <dxi-item *ngIf="contactData" location="after" locateInMenu="auto">
         <dx-button
           text="Terminate"
           type="default"
           stylingMode="contained"
         ></dx-button>
       </dxi-item>
-      <dxi-item location="after">
+      <dxi-item *ngIf="contactData" location="after">
         <dx-drop-down-button
           text="Actions"
           stylingMode="text"
@@ -47,8 +50,10 @@
         }"
       ></dxi-item>
     </dx-toolbar>
-
-    <div class="panels theme-dependent">
+    <div *ngIf="!contactData && userId" class="message">
+      <div class="no-data">No data for this user</div>
+    </div>
+    <div *ngIf="contactData" class="panels theme-dependent">
       <div class="left">
         <contact-form
           [contactData]="contactData"

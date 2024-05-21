@@ -21,7 +21,7 @@ import { Opportunities } from 'src/app/types/opportunities';
 import { ContactFormModule } from 'src/app/components/library/contact-form/contact-form.component';
 import { ContactCardsModule } from 'src/app/components/utils/contact-cards/contact-cards.component';
 import { DxToolbarModule } from 'devextreme-angular/ui/toolbar';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   templateUrl: './crm-contact-details.component.html',
@@ -30,19 +30,12 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CrmContactDetailsComponent implements OnInit {
   userId: number;
-
   contactData: Contact;
-
   contactNotes: Notes;
-
   contactMessages: Messages;
-
   activeOpportunities: Opportunities;
-
   closedOpportunities: Opportunities;
-
-  contactName: string;
-
+  userName: string = 'No user data'
   isLoading = false;
 
   constructor(private service: DataService, private router: Router ) {
@@ -51,6 +44,7 @@ export class CrmContactDetailsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userName = localStorage.getItem('userName')
     this.loadData();
   }
 
@@ -85,7 +79,8 @@ export class CrmContactDetailsComponent implements OnInit {
     );
     this.service.getContact(this.userId).subscribe( {
       next:(data) => {
-      this.contactName = data?.name;
+      this.userName = data?.name;
+      this.userName = localStorage.getItem('userName')
       this.contactData = data;
       setTimeout(() => {
         this.isLoading = false;

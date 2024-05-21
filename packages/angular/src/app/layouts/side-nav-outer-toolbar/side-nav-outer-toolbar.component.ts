@@ -8,7 +8,7 @@ import {
 } from '@angular/core';
 import { DxTreeViewTypes } from 'devextreme-angular/ui/tree-view';
 import { DxDrawerModule, DxDrawerTypes } from 'devextreme-angular/ui/drawer';
-import { DxScrollViewComponent } from 'devextreme-angular/ui/scroll-view';
+import { DxScrollViewComponent, DxScrollViewModule } from 'devextreme-angular/ui/scroll-view';
 import { CommonModule } from '@angular/common';
 
 import { Router, RouterModule, NavigationEnd, Event } from '@angular/router';

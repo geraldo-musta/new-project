@@ -10,7 +10,9 @@
 .layout-body {
   flex: 1;
   min-height: 0;
-  background-color: var(--background-color);
+  background-color: var(--content-padding);
+  margin: 0px;
+  padding: 0px 20px 20px 20px;  
 }
 
 .content {
